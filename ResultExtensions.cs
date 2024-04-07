@@ -12,7 +12,7 @@ internal static sealed class ResultExtensions
         if (res.IsFailure) return res.Failure<TOut>(res.Errors);
         else return await func(res.Value);
     }
-
+ // implementation
     public async Task<IActionResult> UpdateMember(
         Guid id, [FromBody] UpdateMemberRequest req, CancellationToken ctk
     )
