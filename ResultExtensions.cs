@@ -1,8 +1,6 @@
 #region     with use of MediatR coupled with CQRS, i.e  
 public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result> where TCommand : ICommand {}
-public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse>
-{
-}
+public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse> {}
 #endregion
 
 internal static sealed class ResultExtensions 
@@ -12,7 +10,7 @@ internal static sealed class ResultExtensions
         if (res.IsFailure) return res.Failure<TOut>(res.Errors);
         else return await func(res.Value);
     }
- // implementation
+    // implementation
     public async Task<IActionResult> UpdateMember(
         Guid id, [FromBody] UpdateMemberRequest req, CancellationToken ctk
     )
