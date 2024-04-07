@@ -11,16 +11,19 @@ internal static sealed class ResultExtensions
         else return await func(res.Value);
     }
     // implementation
+    // [..]
     public async Task<IActionResult> UpdateMember(
         Guid id, [FromBody] UpdateMemberRequest req, CancellationToken ctk
     )
-
-    return await Result
-    .Create(
-        new UpdateUserCommand(
-            id, 
-            req.FirstName,
-            req.LastName))
-    .Bind(command => Sender.Send(command, ctk))
-    .Match(() => NoContent(), result => HandleFailure())
+    {
+        return await Result
+        .Create(
+            new UpdateUserCommand(
+                id, 
+                req.FirstName,
+                req.LastName))
+        .Bind(command => Sender.Send(command, ctk))
+        .Match(() => NoContent(), result => HandleFailure())
+    }
+    // [..]
 }
