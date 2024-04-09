@@ -1,6 +1,8 @@
 #region with use of prerequisite MediatR coupled with CQRS, i.e  
-public interface ICommandHandler<TC> : IRequestHandler<TC, Result> where TC : ICommand {}
-public interface ICommandHandler<TC, TResponse> : IRequestHandler<TC, Result<TR>> where TC : ICommand<TR> {}
+public interface IQuery<TR> : IRequest<Result<TR>> {}
+public interface ICommand<TR> : IRequest<Result<TR>> {}
+public interface IQueryHandler<TQ, TR> : IRequestHandler<TQ, Result<TR>> where TQ : IQuery<TR> {}
+public interface ICommandHandler<TC, TR> : IRequestHandler<TC, Result<TR>> where TC : ICommand<TR> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
