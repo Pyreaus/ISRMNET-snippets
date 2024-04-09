@@ -30,7 +30,7 @@ return await Result.Create(new UpdateUserCommand(id, req.FirstName, req.LastName
     .Bind(cmd => Sender.Send(cmd, ctk)).Match(() => NoContent(), result => HandleFailure());
 
                            
-                           /** non-generic version:
+/** non-generic version:
 public sealed record CreateCommand(args) : IRequest;
 public sealed record GetUserByIdQuery(args) : IRequest;
 internal sealed class CreateCommandHandler : IRequestHandler<CreateCommand> [...]
