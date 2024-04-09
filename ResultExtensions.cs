@@ -11,8 +11,7 @@ internal static sealed class ResultExtensions
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
-    #region Implementation
-    // [..]
+    // [..] (Implementation)
     public async Task<IActionResult> UpdateMember(
         [SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
     {
