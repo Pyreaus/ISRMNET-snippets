@@ -5,11 +5,12 @@ public interface ICommandHandler<TC, TResponse> : IRequestHandler<TC, Result<TRe
 
 internal static sealed class ResultExtensions 
 {
-    internal static async Task<Result<TOut>> Bind<TIn, TOut>(this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
+    internal static async Task<Result<TOut>> Bind<TIn, TOut>(
+        this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
-    #region implementation
+    #region Implementation
     // [..]
     public async Task<IActionResult> UpdateMember([PFID] string id,
         [FromBody] UpdateMemberRequest req, CancellationToken ctk)
@@ -27,5 +28,4 @@ internal static sealed class ResultExtensions
     return await Result.Create(new UpdateUserCommand(id, req.FirstName, req.LastName)
         .Bind(cmd => Sender.Send(cmd, ctk)).Match(() => NoContent(), result => HandleFailure());
     #endregion
-)
 }
