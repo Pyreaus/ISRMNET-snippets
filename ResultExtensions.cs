@@ -12,21 +12,20 @@ internal static sealed class ResultExtensions
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
-    // [..] (Implementation)
-    public async Task<IActionResult> UpdateMember(
-        [SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
-    {
-        return await Result
-        .Create(
-            new UpdateUserCommand(
-                id, 
-                req.FirstName,
-                req.LastName))
-        .Bind(command => Sender.Send(command, ctk))
-        .Match(() => NoContent(), result => HandleFailure())
-    }
-    // [..]
-    return await Result.Create(new UpdateUserCommand(id, req.FirstName, req.LastName)
-        .Bind(cmd => Sender.Send(cmd, ctk)).Match(() => NoContent(), result => HandleFailure());
-    #endregion
 }
+// [..] (Implementation)
+public async Task<IActionResult> UpdateMember(
+    [SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
+{
+    return await Result
+    .Create(
+        new UpdateUserCommand(
+            id, 
+            req.FirstName,
+            req.LastName))
+    .Bind(command => Sender.Send(command, ctk))
+    .Match(() => NoContent(), result => HandleFailure())
+}
+// [..]
+return await Result.Create(new UpdateUserCommand(id, req.FirstName, req.LastName)
+    .Bind(cmd => Sender.Send(cmd, ctk)).Match(() => NoContent(), result => HandleFailure());
