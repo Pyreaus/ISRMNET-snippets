@@ -13,8 +13,8 @@ internal static sealed class ResultExtensions
     }
     #region Implementation
     // [..]
-    public async Task<IActionResult> UpdateMember([PFID] string id,
-        [FromBody] UpdateMemberRequest req, CancellationToken ctk)
+    public async Task<IActionResult> UpdateMember(
+        [SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
     {
         return await Result
         .Create(
