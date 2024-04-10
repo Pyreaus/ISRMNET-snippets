@@ -1,8 +1,9 @@
-#region with use of prerequisite MediatR coupled with CQRS, i.e
-public interface IQuery<TR> : IRequest<Result<TR>> {}
-public interface IQueryHandler<TQ, TR> : IRequestHandler<TQ, Result<TR>> where TQ : IQuery<TR> {}
-public interface ICommand<TR> : IRequest<Result<TR>> {}
+#region prerequisite CQRS pattern i.e
+public interface IQuery<TResponse> : IResult<Result<TResponse>> {}
+public sealed record Query([SFID] string Id) : IQuery<UserResponse>
+public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>> where TQuery : IQuery<TResponse> {}
 public interface ICommandHandler<TC, TR> : IRequestHandler<TC, Result<TR>> where TC : ICommand<TR> {}
+public interface ICommand<TR> : IRequest<Result<TR>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
