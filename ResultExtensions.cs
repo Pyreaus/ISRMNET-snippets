@@ -1,9 +1,9 @@
 #region prerequisite CQRS pattern i.e
-public interface IQuery<TResponse> : IResult<Result<TResponse>> {}
-public sealed record Query([SFID] string Id) : IQuery<UserResponse>;
-public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>> where TQuery : IQuery<TResponse> {}
-public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse> {}
-public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
+// public interface IQuery<TResponse> : IResult<Result<TResponse>> {}
+// public sealed record Query([SFID] string Id) : IQuery<UserResponse>;
+// public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>> where TQuery : IQuery<TResponse> {}
+// public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse> {}
+// public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
