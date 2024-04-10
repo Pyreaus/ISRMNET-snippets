@@ -1,14 +1,13 @@
 #region prerequisite CQRS pattern i.e
 public interface IQuery<TResponse> : IResult<Result<TResponse>> {}
-public sealed record Query([SFID] string Id) : IQuery<UserResponse>
+public sealed record Query([SFID] string Id) : IQuery<UserResponse>;
 public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>> where TQuery : IQuery<TResponse> {}
 public interface ICommandHandler<TC, TR> : IRequestHandler<TC, Result<TR>> where TC : ICommand<TR> {}
 public interface ICommand<TR> : IRequest<Result<TR>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
-    internal static async Task<Result<TOut>> Bind<TIn, TOut>(
-        this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
+    internal static async Task<Result<TOut>> Bind<TIn, TOut>(this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
