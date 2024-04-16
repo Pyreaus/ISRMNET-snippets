@@ -1,9 +1,9 @@
 #region prerequisite CQRS pattern i.e
-public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse>
 {
     Task<Result<TResponse>> Handle(TCommand command, CancellationToken ctk);
 }
+public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
