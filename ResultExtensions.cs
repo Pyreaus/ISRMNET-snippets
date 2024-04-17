@@ -7,7 +7,8 @@ public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
-    internal static async Task<Result<TOut>> Bind<TIn, TOut>(this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
+    internal static async Task<Result<TOut>> Bind<TIn, TOut>(
+    this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
