@@ -1,14 +1,13 @@
 #region prerequisite CQRS pattern i.e
 public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse>
 {
-    Task<Result<TResponse>> Handle(TCommand command, CancellationToken ctk);
+    Task<Result<TResponse>> Handle(TCommand command, CancellationToken ctk = default);
 }
 public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 #endregion
 internal static sealed class ResultExtensions 
 {
-    internal static async Task<Result<TOut>> Bind<TIn, TOut>(
-        this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
+    internal static async Task<Result<TOut>> Bind<TIn, TOut>(this Result<TIn> res, Func<TIn, Task<Result<TOut>>> func)
     {
         return res.IsFailure ? res.Failure<TOut>(res.Errors) : await func(res.Value);
     }
