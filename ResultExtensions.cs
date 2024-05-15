@@ -16,7 +16,10 @@ internal static sealed class ResultExtensions
     }
 }
 // <Implementation>
-public async Task<IActionResult> UpdateMember([SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
+public async Task<IActionResult> UpdateMember(
+    [SFID] string id, 
+    [FromBody] UpdateMemberRequest req, 
+    CancellationToken ctk)
 {
     return await Result
     .Create(
