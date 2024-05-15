@@ -1,5 +1,6 @@
 #region prerequisite CQRS pattern i.e
-public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>> where TCommand : ICommand<TResponse>
+public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
+    where TCommand : ICommand<TResponse>
 {
     Task<Result<TResponse>> Handle(TCommand cmd, CancellationToken ctk = default);
 }
