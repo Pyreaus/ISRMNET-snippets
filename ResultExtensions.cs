@@ -6,6 +6,7 @@ public interface ICommandHandler<in TCommand, TResponse>
 }
 public interface ICommand<TResponse> : IRequest<Result<TResponse>> {}
 #endregion
+
 internal static sealed class ResultExtensions 
 {
     internal static async Task<Result<TOut>> Bind<TIn, TOut>(
@@ -15,8 +16,7 @@ internal static sealed class ResultExtensions
     }
 }
 // <Implementation>
-public async Task<IActionResult> UpdateMember(
-    [SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
+public async Task<IActionResult> UpdateMember([SFID] string id, [FromBody] UpdateMemberRequest req, CancellationToken ctk)
 {
     return await Result
     .Create(
