@@ -12,8 +12,7 @@ public class Result
             throw new InvalidOperationException();
         }
 
-        IsSuccess = isSuccess;
-        Error = error;
+        (IsSucces, Error) = (isSuccess, error);
     }
 
     public bool IsSuccess { get; }
