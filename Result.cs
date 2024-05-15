@@ -29,7 +29,6 @@ public class Error : IEquatable<Error>
     }
 
     public override bool Equals(object? obj) => obj is Error error && Equals(error);
-    
     public virtual bool Equals(Error? other)
     {
         if (other is null)
