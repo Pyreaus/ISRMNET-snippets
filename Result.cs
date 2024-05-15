@@ -28,6 +28,8 @@ public class Error : IEquatable<Error>
         return a.Equals(b);
     }
 
+    public override bool Equals(object? obj) => obj is Error error && Equals(error);
+    
     public virtual bool Equals(Error? other)
     {
         if (other is null)
@@ -37,8 +39,6 @@ public class Error : IEquatable<Error>
 
         return Code == other.Code && Message == other.Message;
     }
-    
-    public override bool Equals(object? obj) => obj is Error error && Equals(error);
     
     public override string ToString() => Code;
     public override int GetHashCode() => HashCode.Combine(Code, Message);
