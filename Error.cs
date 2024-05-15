@@ -20,7 +20,7 @@ public class Error : IEquatable<Error>
             return true;
         }
 
-        if (a is null || b is null)
+        else if (a is null || b is null)
         {
             return false;
         }
