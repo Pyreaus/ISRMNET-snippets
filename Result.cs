@@ -15,7 +15,6 @@ public class Result
         (IsSuccess, Error) = (isSuccess, error);
     }
 
-
     public Error Error { get; }
     
     public bool IsFailure => !IsSuccess;
