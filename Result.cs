@@ -40,6 +40,6 @@ public class Result<TValue> : Result // generic Result<T> class
 
     public static implicit operator Result<TValue>(TValue? value) => Create(value);
     
-    public TValue Value => IsSuccess ? _value! 
-    : throw new InvalidOperationException("The value of a failure result can not be accessed.");
+    public TValue Value => IsSuccess ? _value! : throw new InvalidOperationException(
+        "The value of a failure result can not be accessed.");
 }
