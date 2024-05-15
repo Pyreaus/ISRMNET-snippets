@@ -2,10 +2,9 @@ public class Result
 {
     protected internal Result(bool isSuccess, Error error)
     {
-        if (isSuccess && error != Error.None 
-            || !isSuccess && error == Error.None)
+        if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException(nameof(error));
         }
 
         (IsSuccess, Error) = (isSuccess, error);
