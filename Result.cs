@@ -17,9 +17,9 @@ public class Result
 
     public Error Error { get; }
     
-    public bool IsFailure => !IsSuccess;
-
     public bool IsSuccess { get; }
+
+    public bool IsFailure => !IsSuccess;
 
     public static Result Success() => new(true, Error.None);
     
