@@ -32,7 +32,7 @@ public class Result
     public static Result<TValue> Create<TValue>(TValue? value) => value != null ? Success(value) : Failure<TValue>(Error.NullValue);
 }
 
-public class Result<TValue> : Result        // generic Result<T> class
+public class Result<TValue> : Result // generic Result<T> class
 {
     private readonly TValue? _value;
 
