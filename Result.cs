@@ -2,6 +2,7 @@ public class Result
 {
     public Error Error { get; }
     public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
     
     protected internal Result(bool isSuccess, Error error)
     {
@@ -13,7 +14,6 @@ public class Result
         (IsSuccess, Error) = (isSuccess, error);
     }
     
-    public bool IsFailure => !IsSuccess;
 
     public static Result Success() => new(true, Error.None);
     
