@@ -10,8 +10,8 @@ public class Error : IEquatable<Error>
     public string Code { get; }
     public string Message { get; }
 
-    public static implicit operator Result(Error error) => Result.Failure(error);
-    public static implicit operator string(Error error) => error.Code;
+    public static implicit operator Result(Error e) => Result.Failure(e);
+    public static implicit operator string(Error e) => e.Code;
     
     public static bool operator ==(Error? a, Error? b)
     {
