@@ -1,5 +1,8 @@
 public class Result
 {
+    public Error Error { get; }
+    public bool IsSuccess { get; }
+    
     protected internal Result(bool isSuccess, Error error)
     {
         if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
@@ -9,19 +12,14 @@ public class Result
 
         (IsSuccess, Error) = (isSuccess, error);
     }
-
-    public Error Error { get; }
     
-    public bool IsSuccess { get; }
-
     public bool IsFailure => !IsSuccess;
 
     public static Result Success() => new(true, Error.None);
     
     public static Result Failure(Error error) => new(false, error);
     
-    public static Result<TValue> Create<TValue>(TValue? value) => value != null ? 
-        Success(value) : Failure<TValue>(Error.NullValue);
+    public static Result<TValue> Create<TValue>(TValue? value) => value != null ? Success(value) : Failure<TValue>(Error.NullValue);
     
     public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
     
