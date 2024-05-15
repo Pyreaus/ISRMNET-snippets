@@ -12,6 +12,7 @@ public class Error : IEquatable<Error>
 
     public static implicit operator string(Error error) => error.Code;
 
+    public static bool operator !=(Error? a, Error? b) => !(a == b);
     public static bool operator ==(Error? a, Error? b)
     {
         if (a is null && b is null)
@@ -26,8 +27,6 @@ public class Error : IEquatable<Error>
 
         return a.Equals(b);
     }
-    
-    public static bool operator !=(Error? a, Error? b) => !(a == b);
 
     public virtual bool Equals(Error? other)
     {
