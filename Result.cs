@@ -37,7 +37,9 @@ public class Error : IEquatable<Error>
 
         return Code == other.Code && Message == other.Message;
     }
+    
     public override bool Equals(object? obj) => obj is Error error && Equals(error);
+    
     public override string ToString() => Code;
     public override int GetHashCode() => HashCode.Combine(Code, Message);
 }
