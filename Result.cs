@@ -3,7 +3,7 @@ public class Result
     public Error Error { get; }
     public bool IsSuccess { get; }
     public bool IsFailure => !IsSuccess;
-    public StackTrace? StackTrace { get; }
+    public StackTrace? StackTrace { get; init; }
     
     protected internal Result(bool isSuccess, Error error, StackTrace, stackTrace)
     {
