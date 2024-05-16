@@ -1,8 +1,8 @@
 public class Result
 {
-    public Error Error { get; }
-    public bool IsSuccess { get; }
     public bool IsFailure => !IsSuccess;
+    public bool IsSuccess { get; }
+    public Error Error { get; }
     public StackTrace? StackTrace { get; init; }
     
     protected internal Result(bool isSuccess, Error error, StackTrace, stackTrace)
