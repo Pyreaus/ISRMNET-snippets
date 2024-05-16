@@ -7,8 +7,8 @@ public class Error : IEquatable<Error>
     {
         (Code, Message) = (code, message);
     }
-    public string Code { get; }
-    public string Message { get; }
+    public string Code { get; init; }
+    public string Message { get; init; }
 
     public static implicit operator string(Error e) => e.Code;
     public static implicit operator Result(Error e) => Result.Failure(e);
