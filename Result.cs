@@ -2,6 +2,7 @@ public class Result
 {
     public Error Error { get; }
     public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
     public StackTrace? StackTrace { get; }
     
     protected internal Result(bool isSuccess, Error error, StackTrace, stackTrace)
@@ -13,9 +14,6 @@ public class Result
         
         (IsSuccess, Error, StackTrace) = (isSuccess, error, stackTrace);
     }
-
-    public bool IsFailure => !IsSuccess;
-
     public static Result Success() => new(true, Error.None);
     
     public static Result Failure(Error error) => new(false, error, new StackTrace());
