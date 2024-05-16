@@ -2,6 +2,9 @@ public class Error : IEquatable<Error>
 {
     public static readonly Error NullValue = new(Errors.NullValue, "The specified result value is null.");
     public static readonly Error None = new(string.Empty, string.Empty);
+
+    public static implicit operator Result(Error e) => Result.Failure(e);
+    public static implicit operator string(Error e) => e.Code;
     
     public Error(string code, string message)
     {
@@ -10,10 +13,6 @@ public class Error : IEquatable<Error>
     public string Code { get; init; }
     public string Message { get; init; }
 
-    public static implicit operator string(Error e) => e.Code;
-    public static implicit operator Result(Error e) => Result.Failure(e);
-
-    public static bool operator !=(Error? a, Error? b) => !(a == b);
     public static bool operator ==(Error? a, Error? b)
     {
         if (a is null && b is null)
@@ -28,6 +27,8 @@ public class Error : IEquatable<Error>
 
         return a.Equals(b);
     }    
+    public static bool operator !=(Error? a, Error? b) => !(a == b);
+        
     public virtual bool Equals(Error? other)
     {
         if (other is null)
