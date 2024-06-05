@@ -1,11 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using ISRM.isrmnet.Model.POCOs.Entities;
-/// <summary><para>
-///  EF Core expects this class to always reside in DAL.dll, circumvent this by:
-///  Explicitly specifying the assembly containing this class when performing migrations: (dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly>)
-///  --OR--  Implementing the <see cref="IDesignTimeDbContextFactory{ISRMNETContext}"/> interface in <c>ISRMNETDbFactory</c> or in a seperate class.  
-/// <summary><para>
-
 namespace ISRM.isrmnet.Model.Contexts
 {
     public sealed partial class ISRMNETContext(DbContextOptions<ISRMNETContext> opt) : DbContext(opt) 
@@ -23,9 +15,9 @@ namespace ISRM.isrmnet.Model.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StaffFinderUser>().HasData(staffFinderUsers, GenerateSFUsers());      
-            modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
             modelBuilder.Entity<HRUser>().HasData(hrUsers);
+            modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
+            modelBuilder.Entity<StaffFinderUser>().HasData(staffFinderUsers, GenerateSFUsers());      
         }
         private static HRUser?[] GenerateHRUsers() => [];
         private static AdminUser?[] GenerateAdminUsers() => [];
