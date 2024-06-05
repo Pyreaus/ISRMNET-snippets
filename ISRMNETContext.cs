@@ -3,8 +3,8 @@ using ISRM.isrmnet.Model.POCOs.Entities;
     //---   Explicitly specify the assembly containing this DbContext when adding a migration since EF Core expects a DbContext in the .DAL assmembly
     //---   Use: dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly> 
 
-namespace ISRM.isrmnet.Model.Contexts
-{
+namespace ISRM.isrmnet.Model.Contexts;
+
     public sealed partial class ISRMNETContext(DbContextOptions<ISRMNETContext> opt) : DbContext(opt) 
     {
         public DbSet<HRUser> HRUsers { get; set; }
@@ -127,4 +127,4 @@ namespace ISRM.isrmnet.Model.Contexts
             // modelBuilder.Entity<StaffFinderUser>().HasData(new StaffFinderUser());      
             // modelBuilder.Entity<StaffFinderUser>().ToView("StaffFinderUser").HasKey(x=>x.PFID);
     }
-}
+
