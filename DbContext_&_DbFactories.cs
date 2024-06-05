@@ -23,7 +23,7 @@ namespace ISRM.isrmnet.Model.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HRUser>().HasData(hrUsers);
+            modelBuilder.Entity<HRUser>().HasData(hrUsers, GenerateHRUsers());
             modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
             modelBuilder.Entity<StaffFinderUser>().HasData(staffFinderUsers, GenerateSFUsers());      
         }
