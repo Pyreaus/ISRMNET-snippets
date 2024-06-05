@@ -58,7 +58,7 @@ namespace ISRM.isrmnet.Model.Contexts
         }
     }
 }
-    namespace ISRM.isrmnet.DAL.Factories:  
+    namespace ISRM.isrmnet.DAL.Factories;
     public sealed class ISRMNETDbFactory : Disposable, IDbFactory<ISRMNETContext>, IDesignTimeDbContextFactory<ISRMNETContext>
     {
         ISRMNETContext? ctx;
