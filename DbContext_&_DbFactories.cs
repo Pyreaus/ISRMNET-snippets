@@ -53,7 +53,7 @@ namespace ISRM.isrmnet.Model.Contexts
     }
 }
     namespace ISRM.isrmnet.DAL.Factories;
-    public sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
+    internal sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
     {
         ISRMNETContext? ctx;
         private readonly ILogger<ISRMNETDbFactory> _logger;
