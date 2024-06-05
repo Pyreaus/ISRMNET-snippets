@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ISRM.isrmnet.Model.POCOs.Entities;
+
 /// <summary><para>
 ///   EF Core expects this class to always reside in DAL.dll, circumvent this by:
 ///   Explicitly specifying the assembly containing this class when performing migrations: (dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly>)
