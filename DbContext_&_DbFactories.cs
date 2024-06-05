@@ -23,9 +23,9 @@ namespace ISRM.isrmnet.Model.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HRUser>().HasData(hrUsers, GenerateHRUsers());
-            modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
             modelBuilder.Entity<StaffFinderUser>().HasData(staffFinderUsers, GenerateSFUsers());      
+            modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
+            modelBuilder.Entity<HRUser>().HasData(hrUsers);
         }
         private static HRUser?[] GenerateHRUsers() => [];
         private static AdminUser?[] GenerateAdminUsers() => [];
