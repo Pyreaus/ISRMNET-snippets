@@ -17,7 +17,7 @@ namespace ISRM.isrmnet.Model.Contexts
         {
             if (!optionsBuilder.IsConfigured)
             {                                 
-                optionsBuilder.UseSqlServer("<connnection-string>");  //fallback string
+                optionsBuilder.UseSqlServer("<connnection-string>"); //fallback string
             }
             base.OnConfiguring(optionsBuilder);
         }
