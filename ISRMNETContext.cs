@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ISRM.isrmnet.Model.POCOs.Entities;
 /// <summary><para>
 ///   EF Core expects DbContext in the .DAL assmembly so you must either:
-///   Explicitly specify the assembly containing this DbContext when performing migrations: (dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly>)
+///   Explicitly specify the assembly containing this class when performing migrations: (dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly>)
 ///   --OR--  Implement the IDesignTimeDbContextFactory<ISRMNETContext> interface in ISRMNETDbFactory or in a seperate class.  
 /// <summary><para>
 
