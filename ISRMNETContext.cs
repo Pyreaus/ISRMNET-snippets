@@ -1,4 +1,5 @@
-
+using Microsoft.EntityFrameworkCore;
+using ISRM.isrmnet.Model.POCOs.Entities;
     //---   Explicitly specify the assembly containing this DbContext when adding a migration since EF Core expects a DbContext in the .DAL assmembly
     //---   Use: dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly> 
 
