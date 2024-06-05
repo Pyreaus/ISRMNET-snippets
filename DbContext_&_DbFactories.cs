@@ -44,9 +44,11 @@ namespace ISRM.isrmnet.Model.Contexts
                     Human = false,
                 }).ToArray();
         }
-        private readonly HRUser[] hrUsers = [];
-        private readonly AdminUser[] adminUsers = [ new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" } ]
-        private readonly StaffFinderUser[] staffFinderUsers = [ new() { ActiveUser = true, Email = "john.smith@isrm.tech", FirstName = "John", LastName = "Smith", SFID = 400, WinUser = "ISRM\\JSmith" }];
+        private readonly AdminUser[] adminUsers = [
+            new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" } ]
+        private readonly StaffFinderUser[] staffFinderUsers = [
+            new() { ActiveUser = true, Email = "john.smith@isrm.tech", FirstName = "John", LastName = "Smith", SFID = 400, WinUser = "ISRM\\JSmith" }
+        ];
 
         static readonly string[,] names = new string[,]
         {
