@@ -3,8 +3,8 @@ using ISRM.isrmnet.Model.POCOs.Entities;
     //---   Explicitly specify the assembly containing this DbContext when adding a migration since EF Core expects a DbContext in the .DAL assmembly
     //---   Use: dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly> 
 
-namespace ISRM.isrmnet.Model.Contexts;
-
+namespace ISRM.isrmnet.Model.Contexts
+{
     public sealed partial class ISRMNETContext(DbContextOptions<ISRMNETContext> opt) : DbContext(opt) 
     {
         public DbSet<HRUser> HRUsers { get; set; }
@@ -43,9 +43,12 @@ namespace ISRM.isrmnet.Model.Contexts;
                 .ToArray();
         }
         private readonly HRUser[] hrUsers = [];
-        private readonly AdminUser[] adminUsers = [ new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" }];
+        private readonly AdminUser[] adminUsers = [ 
+            new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" }
+            new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" }
+        ]
         private readonly StaffFinderUser[] staffFinderUsers = [ new() { ActiveUser = true, Email = "john.smith@isrm.tech", FirstName = "John", LastName = "Smith", SFID = 400, WinUser = "ISRM\\JSmith" }];
-      
+
         static readonly string[,] names = new string[,]
         {
             {"John", "Doe"},
@@ -127,4 +130,4 @@ namespace ISRM.isrmnet.Model.Contexts;
             // modelBuilder.Entity<StaffFinderUser>().HasData(new StaffFinderUser());      
             // modelBuilder.Entity<StaffFinderUser>().ToView("StaffFinderUser").HasKey(x=>x.PFID);
     }
-
+}
