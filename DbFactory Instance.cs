@@ -19,8 +19,8 @@ namespace ISRM.isrmnet.DAL.Factories
             (_configuration, _environment, _logger) = ( configuration, environment, logger);
         }
         public ISRMNETDbFactory() {}
-        protected override void DisposeCore() => ctx?.Dispose(); 
-        public ISRMNETContext Init() //initialize DbContext 
+        protected override void DisposeCore() => ctx?.Dispose(); //dispose if null
+        public ISRMNETContext Init()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
             var connectionString = _configuration.GetConnectionString("ISRMNETConnection");
