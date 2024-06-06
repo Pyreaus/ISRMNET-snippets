@@ -11,12 +11,10 @@ namespace ISRM.isrmnet.Model.Contexts
         public DbSet<HRUser> HRUsers { get; set; }
         public DbSet<AdminUser> AdmUsers { get; set; }
         public DbSet<StaffFinderUser> SFUsers { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("<connnection-string>"); //fallback string
-            }
+            if (!optionsBuilder.IsConfigured) optionsBuilder.UseSqlServer("<connnection-string>"); //fallback string
             if (isDevelopment) optionsBuilder.EnableSensitiveDataLogging();
             base.OnConfiguring(optionsBuilder);
         }
