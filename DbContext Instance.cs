@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using ISRM.isrmnet.Model.POCOs.Entities;
 /// <summary><para>
 ///  EF Core expects this class to always reside in DAL.dll, circumvent this by:
 ///  Explicitly specifying the assembly containing this class when performing migrations: (dotnet ef migrations add <MigrationName> --startup-project <RelativePathToAssembly>)
@@ -8,7 +6,7 @@ using ISRM.isrmnet.Model.POCOs.Entities;
 
 namespace ISRM.isrmnet.Model.Contexts
 {
-    public sealed partial class ISRMNETContext(DbContextOptions<ISRMNETContext> opt) : DbContext(opt) 
+    public sealed partial class ISRMNETContext(DbContextOptions<ISRMNETContext> opt, bool isDevelopment=true) : DbContext(opt) 
     {
         public DbSet<HRUser> HRUsers { get; set; }
         public DbSet<AdminUser> AdmUsers { get; set; }
@@ -19,13 +17,24 @@ namespace ISRM.isrmnet.Model.Contexts
             {
                 optionsBuilder.UseSqlServer("<connnection-string>"); //fallback string
             }
+            if (isDevelopment) optionsBuilder.EnableSensitiveDataLogging();
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HRUser>().HasData(hrUsers, GenerateHRUsers());
-            modelBuilder.Entity<AdminUser>().HasData(adminUsers, GenerateAdminUsers());
-            modelBuilder.Entity<StaffFinderUser>().HasData(staffFinderUsers, GenerateSFUsers());      
+            modelBuilder.Entity<AdminUser>(entity =>
+            {
+                entity.HasKey(x => x.ADMIN_ID); 
+                entity.Property(x => x.ADMIN_ID).ValueGeneratedNever();  
+            });
+            modelBuilder.Entity<HRUser>(entity =>
+            {
+                entity.HasKey(x => x.HR_ID); 
+                entity.Property(x => x.HR_ID).ValueGeneratedNever();  
+            });
+            modelBuilder.Entity<AdminUser>().HasData([.. adminUsers, .. GenerateAdminUsers()]);
+            modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers()]);
+            modelBuilder.Entity<StaffFinderUser>().HasData([.. staffFinderUsers, .. GenerateSFUsers()]);
         }
         private static HRUser?[] GenerateHRUsers() => [];
         private static AdminUser?[] GenerateAdminUsers() => [];
@@ -36,8 +45,8 @@ namespace ISRM.isrmnet.Model.Contexts
                 {
                     SFID = 100 + index,
                     WinUser = $"ISRM\\{names[index, 0][0]}{names[index, 1]}",
-                    Email = $"{names[index, 0].ToLower()}.{names[index, 1].ToLower()}@isrm.tech",
                     FirstName = names[index, 0],
+                    Email = $"{names[index, 0].ToLower()}.{names[index, 1].ToLower()}@isrm.tech",
                     LastName = names[index, 1],
                     Shareholder = false,
                     ActiveUser = true,
@@ -45,20 +54,55 @@ namespace ISRM.isrmnet.Model.Contexts
                 }).ToArray();
         }
         private readonly AdminUser[] adminUsers = [
-            new() { ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", WINUSER = "ISRM\\JSmith" } ]
-        private readonly StaffFinderUser[] staffFinderUsers = [
-            new() { ActiveUser = true, Email = "john.smith@isrm.tech", FirstName = "John", LastName = "Smith", SFID = 400, WinUser = "ISRM\\JSmith" }
+            new() { ADMIN_ID = 10, ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden>", WINUSER = "ISRM\\<hidden>" },
+            new() { ADMIN_ID = 11, ACTIVE_USER = true, ADMIN_SFID = 502, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden>", WINUSER = "ISRM\\<hidden>" },
+            new() { ADMIN_ID = 12, ACTIVE_USER = true, ADMIN_SFID = 500, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden>", WINUSER = "ISRM\\<hidden>" }
         ];
-
+        private readonly StaffFinderUser[] staffFinderUsers = [
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 500, WinUser = "ISRM\\<hidden>", Shareholder = true },
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = null, SFID = 601, WinUser = "ISRM\\<hidden>", Shareholder = true},
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 502, WinUser = "ISRM\\<hidden>", Shareholder = true},
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 601, WinUser = "ISRM\\<hidden>", Shareholder = true },
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 501, WinUser = "ISRM\\<hidden>", Shareholder = true}                
+        ];
+        private readonly HRUser[] hrUsers = [
+            new() { ACTIVE_USER = true, EMAIL = "jordan.belfort@isrm.tech", FULL_NAME = "Jordan Belfort", HR_SFID = 401, WINUSER = "ISRM\\<hidden>" },
+            new() { ACTIVE_USER = true, EMAIL = "kylie.jenner@isrm.tech", FULL_NAME = "Kylie Jenner", HR_SFID = 402, WINUSER = "ISRM\\<hidden>" },
+            new() { ACTIVE_USER = true, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", HR_SFID = 400, WINUSER = "ISRM\\<hidden>" }
+        ];
         static readonly string[,] names = new string[,]
         {
             {"John", "Doe"},
             {"Jane", "Smith"},
             {"Michael", "Johnson"},
             {"Emily", "Brown"},
+            {"David", "Jones"},
+            {"Sarah", "Williams"},       
+            {"Martha", "Russell"},
+            {"Dorothy", "Moore"},
+            {"Daniel", "Jackson"},
+            {"Margaret", "Martin"},
+            {"Matthew", "Lee"},
+            {"Barbara", "Perez"},
+            {"Anthony", "Thompson"},
+            {"Susan", "White"},
+            {"Mark", "Harris"},
+            {"Elizabeth", "Sanchez"},
+            {"Steven", "Clark"},
+            {"Mary", "Ramirez"},
+            {"Paul", "Lewis"},
+            {"Patricia", "Robinson"},
+            {"Andrew", "Walker"},
+            {"Jennifer", "Young"},
+            {"Joshua", "Allen"},
+            {"Linda", "King"},
+            {"George", "Wright"},
+            {"Sandra", "Scott"},
+            {"Kevin", "Torres"},
+            {"Ashley", "Nguyen"},
+            {"Brian", "Hill"},
+            
             //[...]
-        }
+        };
     }
 }
-
-    }
