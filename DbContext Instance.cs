@@ -45,6 +45,7 @@ namespace ISRM.isrmnet.Model.Contexts
             return Enumerable.Range(0, names.GetLength(0))
                 .Select(index => new StaffFinderUser()
                 {
+                    TEMP_KEY = 5 + index,
                     SFID = 100 + index,
                     WinUser = $"ISRM\\{names[index, 0][0]}{names[index, 1]}",
                     FirstName = names[index, 0],
