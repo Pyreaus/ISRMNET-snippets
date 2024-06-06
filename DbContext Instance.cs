@@ -35,9 +35,8 @@ namespace ISRM.isrmnet.Model.Contexts
                 entity.HasKey(x => x.HR_ID); 
                 entity.Property(x => x.HR_ID).ValueGeneratedNever();  
             });
-
-            modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers()]);
             modelBuilder.Entity<AdminUser>().HasData([.. adminUsers, .. GenerateAdminUsers()]);
+            modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers()]);
             modelBuilder.Entity<StaffFinderUser>().HasData([.. staffFinderUsers, .. GenerateSFUsers()]);
         }
         private static StaffFinderUser?[] GenerateSFUsers()
