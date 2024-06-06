@@ -20,7 +20,7 @@ namespace ISRM.isrmnet.DAL.Factories
         }
         public ISRMNETDbFactory() {}
         protected override void DisposeCore() => ctx?.Dispose(); //dispose if null
-        public ISRMNETContext Init()
+        public ISRMNETContext Init() //initialize DbContext 
         {
             var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
             var connectionString = _configuration.GetConnectionString("ISRMNETConnection");
