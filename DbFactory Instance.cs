@@ -1,26 +1,25 @@
 namespace ISRM.isrmnet.DAL.Factories
 {   /// <summary><para>
-    /// This DbContextfactory contains logic to initalize a <see cref="TRACRContext"/> instance when the <c>Init()</c> method is invoked
-    /// e.g. inject this into <see cref="IDbFactory{ISRMNETContext}"/> in <c>RepositoryBase</c> or <see cref="TRACRWorkUnit"/>.
-    /// </para><para>
-    /// EF Core expects a DbContext class in the same assembly (DAL.dll) when adding/updating migrations.
-    /// <see cref="IDesignTimeDbContextFactory"/> must be implemented somewhere to facillitate EF Core's 
-    /// design-time creation of <see cref="ISRMNETContext"/> instance when adding/updating migrations. 
-    /// </para></summary>
+    /// DbContextfactory containing logic for initalize <see cref="TRACRContext"/> instances when the <c>Init()</c> method is invoked
+    /// e.g. inject using <see cref="IDbFactory{ISRMNETContext}"/> in <c>RepositoryBase</c> or <see cref="TRACRWorkUnit"/>.</para>
 
-    public sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
+    /// <para>EF Core expects a DbContext class in the same assembly (DAL.dll) when adding/updating migrations.
+    /// <see cref="IDesignTimeDbContextFactory"/> must be implemented somewhere to facillitate EF Core's 
+    /// design-time creation of <see cref="ISRMNETContext"/> instance when adding/updating migrations.
+    /// </para></summary>
+    public sealed class ISRMNETDbFactory : Disposable,
+    IDbFactory<ISRMNETContext>, IDesignTimeDbContextFactory<ISRMNETContext>
     {
-        ISRMNETContext? ctx;
-        private readonly ILogger<ISRMNETDbFactory> _logger;
-        private readonly IWebHostEnvironment _environment;
         private readonly IConfiguration _configuration; 
-        public ISRMNETDbFactory() {}
+        private readonly IWebHostEnvironment _environment;
+        private readonly ILogger<ISRMNETDbFactory> _logger;
+        ISRMNETContext? ctx;
         public ISRMNETDbFactory(ILogger<ISRMNETDbFactory> logger, IConfiguration configuration, IWebHostEnvironment environment)
         {
             (_configuration, _environment, _logger) = ( configuration, environment, logger);
         }
-        protected override void DisposeCore() => ctx?.Dispose(); //dispose if null
-        
+        public ISRMNETDbFactory() {}
+        protected override void DisposeCore() => ctx?.Dispose(); 
         public ISRMNETContext Init() //initialize DbContext 
         {
             var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
@@ -36,14 +35,29 @@ namespace ISRM.isrmnet.DAL.Factories
 
             return ctx ??= new ISRMNETContext(optionsBuilder.Options, _environment.IsDevelopment());
         }
-        
         public ISRMNETContext CreateDbContext(string[] args)  
         {   
-            var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
-            var connectionString = _configuration.GetConnectionString("ISRMNETConnection");
+            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "ISRM.isrmnet.API", "appsettings.Development.json");
             
-            optionsBuilder.UseSqlServer(connectionString, x => x.MigrationsAssembly("ISRM.isrmnet.DAL"));
+            IConfigurationRoot localBuild = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(configPath, optional: false, reloadOnChange: true)
+                .AddJsonFile(
+                    configPath.Replace(
+                     "appsettings.Development.json", 
+                     $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json"), optional: true) 
+                .AddUserSecrets("937bd283-7c13-46cd-b6ac-a9d01c9d6d75")
+                .AddEnvironmentVariables()
+                .Build();
+            
+            var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
+            var connectionString = localBuild.GetSection("ConnectionStrings")["ISRMNETConnection"];
 
+            optionsBuilder.UseSqlServer(connectionString, x => x.MigrationsAssembly("ISRM.isrmnet.DAL"));
+            if (string.IsNullOrWhiteSpace(connectionString) || connectionString == "secret")
+            {
+                throw new Exception("Connection string couldn't be found or is still set to 'secret'");
+            }
             return new ISRMNETContext(optionsBuilder.Options);   
         }
     }
