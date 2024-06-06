@@ -26,10 +26,6 @@ namespace ISRM.isrmnet.Model.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StaffFinderUser>(entity => 
-            {                                              //
-                entity.HasKey(x => x.TEMP_KEY);           // development only
-            });                                          //
             modelBuilder.Entity<AdminUser>(entity =>
             {
                 entity.HasKey(x => x.ADMIN_ID); 
