@@ -35,6 +35,7 @@ namespace ISRM.isrmnet.Model.Contexts
                 entity.HasKey(x => x.HR_ID); 
                 entity.Property(x => x.HR_ID).ValueGeneratedNever();  
             });
+
             modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers()]);
             modelBuilder.Entity<AdminUser>().HasData([.. adminUsers, .. GenerateAdminUsers()]);
             modelBuilder.Entity<StaffFinderUser>().HasData([.. staffFinderUsers, .. GenerateSFUsers()]);
@@ -55,7 +56,9 @@ namespace ISRM.isrmnet.Model.Contexts
                 }).ToArray();
         }
         private static AdminUser?[] GenerateAdminUsers() => [];
+        
         private static HRUser?[] GenerateHRUsers() => [];
+        
         private readonly AdminUser[] adminUsers = [
             new() { ADMIN_ID = 10, ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "habeeb@isrm.tech", FULL_NAME = "Habeeb Surooprajally", WINUSER = "ISRM\\HSurooprajally" },
             new() { ADMIN_ID = 11, ACTIVE_USER = true, ADMIN_SFID = 502, EMAIL = "andras@isrm.tech", FULL_NAME = "Andras CSaki", WINUSER = "ISRM\\ACsaki" },
