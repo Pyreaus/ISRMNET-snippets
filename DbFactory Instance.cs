@@ -6,8 +6,7 @@ namespace ISRM.isrmnet.DAL.Factories
     /// <see cref="IDesignTimeDbContextFactory"/> must be implemented somewhere to facillitate EF Core's 
     /// design-time creation of <see cref="ISRMNETContext"/> instance when adding/updating migrations.</para>
     /// </summary>
-    public sealed class ISRMNETDbFactory : Disposable,
-    IDbFactory<ISRMNETContext>, IDesignTimeDbContextFactory<ISRMNETContext>
+    public sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
     {
         private readonly IConfiguration _configuration; 
         private readonly IWebHostEnvironment _environment;
