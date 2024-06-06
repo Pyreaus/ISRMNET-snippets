@@ -61,19 +61,19 @@ namespace ISRM.isrmnet.Model.Contexts
         private static HRUser?[] GenerateHRUsers() => [];
         
         private readonly AdminUser[] adminUsers = [
-            new() { ADMIN_ID = 10, ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "habeeb@isrm.tech", FULL_NAME = "Habeeb Surooprajally", WINUSER = "ISRM\\HSurooprajally" },
-            new() { ADMIN_ID = 11, ACTIVE_USER = true, ADMIN_SFID = 502, EMAIL = "andras@isrm.tech", FULL_NAME = "Andras CSaki", WINUSER = "ISRM\\ACsaki" },
-            new() { ADMIN_ID = 12, ACTIVE_USER = true, ADMIN_SFID = 500, EMAIL = "noel@isrm.tech", FULL_NAME = "Noel Rhima", WINUSER = "ISRM\\NRhima" }
+            new() { ADMIN_ID = 10, ACTIVE_USER = true, ADMIN_SFID = 501, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden> <hidden>", WINUSER = "ISRM\\<hidden>" },
+            new() { ADMIN_ID = 11, ACTIVE_USER = true, ADMIN_SFID = 502, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden> <hidden>", WINUSER = "ISRM\\<hidden>" },
+            new() { ADMIN_ID = 12, ACTIVE_USER = true, ADMIN_SFID = 500, EMAIL = "<hidden>@isrm.tech", FULL_NAME = "<hidden> <hidden>", WINUSER = "ISRM\\<hidden>" }
         ];
         private readonly StaffFinderUser[] staffFinderUsers = [
-            new() { ActiveUser = true, Email = "noel@isrm.tech", FirstName = "Noel", LastName = "Rhima", SFID = 500, WinUser = "ISRM\\NRhima", Shareholder = true },
-            new() { ActiveUser = true, Email = "joseph@hseven.io", FirstName = "Joseph", LastName = null, SFID = 601, WinUser = "ISRM\\Joseph", Shareholder = true},
-            new() { ActiveUser = true, Email = "andras@isrm.tech", FirstName = "Andras", LastName = "Csaki", SFID = 502, WinUser = "ISRM\\ACsaki", Shareholder = true},
-            new() { ActiveUser = true, Email = "ceo@peterjonas.co.uk", FirstName = "Peter", LastName = "Jonas", SFID = 601, WinUser = "ISRM\\PJonas", Shareholder = true },
-            new() { ActiveUser = true, Email = "habeeb@isrm.tech", FirstName = "Habeeb", LastName = "Surooprajally", SFID = 501, WinUser = "ISRM\\HSurooprajally", Shareholder = true}                
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 500, WinUser = "ISRM\\<hidden>", Shareholder = true },
+            new() { ActiveUser = true, Email = "<hidden>@<hidden>.io", FirstName = "<hidden>", LastName = null, SFID = 601, WinUser = "ISRM\\<hidden>", Shareholder = true},
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 502, WinUser = "ISRM\\<hidden>", Shareholder = true},
+            new() { ActiveUser = true, Email = "<hidden>@<hidden>.co.uk", FirstName = "<hidden>", LastName = "<hidden>", SFID = 601, WinUser = "ISRM\\<hidden>", Shareholder = true },
+            new() { ActiveUser = true, Email = "<hidden>@isrm.tech", FirstName = "<hidden>", LastName = "<hidden>", SFID = 501, WinUser = "ISRM\\<hidden>", Shareholder = true}                
         ];
         private readonly HRUser[] hrUsers = [
-            new() { ACTIVE_USER = true, EMAIL = "jordan.barrett@isrm.tech", FULL_NAME = "Jordan Barrett", HR_SFID = 401, WINUSER = "ISRM\\JBarrett" },
+            new() { ACTIVE_USER = true, EMAIL = "jordan.belfort@isrm.tech", FULL_NAME = "Jordan Belfort", HR_SFID = 401, WINUSER = "ISRM\\JBelfort" },
             new() { ACTIVE_USER = true, EMAIL = "kylie.jenner@isrm.tech", FULL_NAME = "Kylie Jenner", HR_SFID = 402, WINUSER = "ISRM\\KJenner" },
             new() { ACTIVE_USER = true, EMAIL = "john.smith@isrm.tech", FULL_NAME = "John Smith", HR_SFID = 400, WINUSER = "ISRM\\JSmith" }
         ];
