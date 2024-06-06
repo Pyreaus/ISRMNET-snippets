@@ -60,44 +60,5 @@ namespace ISRM.isrmnet.Model.Contexts
         }
     }
 }
-    namespace ISRM.isrmnet.DAL.Factories;
-    internal sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
-    {
-        ISRMNETContext? ctx;
-        private readonly ILogger<ISRMNETDbFactory> _logger;
-        private readonly IWebHostEnvironment _environment;
-        private readonly IConfiguration _configuration; 
-        public ISRMNETDbFactory() {}
-        public ISRMNETDbFactory(ILogger<ISRMNETDbFactory> logger, IConfiguration configuration, IWebHostEnvironment environment)
-        {
-            (_configuration, _environment, _logger) = ( configuration, environment, logger);
-        }
-        protected override void DisposeCore() => ctx?.Dispose(); //dispose if null
-        public ISRMNETContext Init() //initialize DbContext 
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
-            var connectionString = _configuration.GetConnectionString("ISRMNETConnection");
-            
-            optionsBuilder.UseSqlServer(connectionString);
 
-            if (_environment.IsDevelopment())
-            {
-                _logger.LogWarning("Using DEV connection");
-            }
-            else _logger.LogWarning("Using PROD connection");
-
-            return ctx ??= new ISRMNETContext(optionsBuilder.Options);
-        }
-        /// <summary>
-        /// Implementation of <see cref="IDesignTimeDbContextFactory"/>
-        /// </summary>
-        public ISRMNETContext CreateDbContext(string[] args)  
-        {   
-            var optionsBuilder = new DbContextOptionsBuilder<ISRMNETContext>();
-            var connectionString = _configuration.GetConnectionString("ISRMNETConnection");
-            
-            optionsBuilder.UseSqlServer(connectionString);
-
-            return new ISRMNETContext(optionsBuilder.Options);   
-        }
     }
