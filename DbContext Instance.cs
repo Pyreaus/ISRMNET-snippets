@@ -10,6 +10,7 @@ namespace ISRM.isrmnet.Model.Contexts
         public DbSet<HRUser> HRUsers { get; set; }
         public DbSet<AdminUser> AdmUsers { get; set; }
         public DbSet<StaffFinderUser> SFUsers { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -25,6 +26,10 @@ namespace ISRM.isrmnet.Model.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<StaffFinderUser>(entity => 
+            {                                              //
+                entity.HasKey(x => x.TEMP_KEY);           // development only
+            });                                          //
             modelBuilder.Entity<AdminUser>(entity =>
             {
                 entity.HasKey(x => x.ADMIN_ID); 
@@ -35,8 +40,8 @@ namespace ISRM.isrmnet.Model.Contexts
                 entity.HasKey(x => x.HR_ID); 
                 entity.Property(x => x.HR_ID).ValueGeneratedNever();  
             });
+            modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers() ]);
             modelBuilder.Entity<AdminUser>().HasData([.. adminUsers, .. GenerateAdminUsers()]);
-            modelBuilder.Entity<HRUser>().HasData([.. hrUsers, .. GenerateHRUsers()]);
             modelBuilder.Entity<StaffFinderUser>().HasData([.. staffFinderUsers, .. GenerateSFUsers()]);
         }
         private static StaffFinderUser?[] GenerateSFUsers()
