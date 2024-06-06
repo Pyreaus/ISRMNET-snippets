@@ -1,12 +1,13 @@
 namespace ISRM.isrmnet.DAL.Factories
-{   /// <summary>
-    /// <para>Class containing logic to initalize <see cref="TRACRContext"/> instances when the <c>Init()</c> method is invoked
+{   /// <summary><para>Class containing logic to initalize <see cref="TRACRContext"/> instances when the <c>Init()</c> method is invoked
     /// e.g. inject using <see cref="IDbFactory{ISRMNETContext}"/> in <c>RepositoryBase</c> or <see cref="TRACRWorkUnit"/>.
     /// </para><para>EF Core expects a DbContext class in the same assembly (DAL.dll) when adding/updating migrations.
     /// <see cref="IDesignTimeDbContextFactory"/> must be implemented somewhere to facillitate EF Core's 
-    /// design-time creation of <see cref="ISRMNETContext"/> instance when adding/updating migrations.</para>
-    /// </summary>
-    public sealed class ISRMNETDbFactory : Disposable, IDesignTimeDbContextFactory<ISRMNETContext>, IDbFactory<ISRMNETContext>
+    /// design-time creation of <see cref="ISRMNETContext"/> instance when adding/updating migrations.
+    /// </para></summary>
+    
+    public sealed class ISRMNETDbFactory : Disposable,
+    IDbFactory<ISRMNETContext>, IDesignTimeDbContextFactory<ISRMNETContext>
     {
         private readonly IConfiguration _configuration; 
         private readonly IWebHostEnvironment _environment;
